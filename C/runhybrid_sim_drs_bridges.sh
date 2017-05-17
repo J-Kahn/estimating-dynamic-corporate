@@ -9,10 +9,8 @@ set -x
 
 
 #move to working directory
-cd /pylon5/se4s82p/rkahn/estimating-dynamic-corporate/C
 
 export OMP_NUM_THREADS=14
 
-cp /home/rkahn/estimating-dynamic-corporate/C/monte_sim_drs /pylon5/se4s82p/rkahn/estimating-dynamic-corporate/C
 
 ./monte_sim_drs

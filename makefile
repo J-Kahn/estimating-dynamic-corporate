@@ -4,9 +4,6 @@ directories :
 	mkdir Results/MC
 	mkdir Results/MC/Trials
 
-setup_pylon :
-	cp -r ../estimating-dynamic-corporate /pylon5/se4s82p/rkahn
-
 build_large :
 	cd C; make monte monte=mc_sim.cpp optim=simann.cpp simulate=simulate_crs.cpp model=model_crs.cpp; mv monte monte_sim; rm monte.o simulate.o model.o
 	cd C; make monte monte=mc_epfq.cpp optim=simann.cpp simulate=simulate_crs.cpp model=model_crs.cpp; mv monte monte_epfq; rm monte.o simulate.o model.o
