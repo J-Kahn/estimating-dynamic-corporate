@@ -14,7 +14,6 @@ export OMP_NUM_THREADS=14
 
 #copy input files to LOCAL file storage
 #srun -N $SLURM_NNODES --ntasks-per-node=1 \
-#  sh -c 'cp /pylon2/se4s82p/rkahn/input.${SLURM_PROCID} $LOCAL'
 
 
 #run MPI program
