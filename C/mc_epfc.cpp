@@ -150,7 +150,7 @@ string res, filename, filername, resr;
   		vcvm.reshape(moms.ncols(), moms.ncols());
 
        res1.reset();
-	    matrix results = simann(init_points, false, 0.85, 1e-6, 20, 5, -4, 150000, minb, maxb, cb, -4, 100, 0.005,
+	    matrix results = simann(init_points, false, 0.85, 1e-6, 20, 5, 4, 150000, minb, maxb, cb, -4, 100, 0.005,
 	                       vm1, dat1, res1, m, vcvm, mn, randus, filename, "../Results/MC/Trials/", objec_epf_cube, f, f_0, thr_num, 4);
       matrix jac, jac2, jac5, jac52;
       res1.wipe_long();

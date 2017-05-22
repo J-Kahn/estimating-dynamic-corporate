@@ -726,6 +726,8 @@ matrix report_all_mc(dynprob &valstor, int nsim, int nbr, data &ret, matrix&rand
       Calculate relevant estimators.
     */
 
+    beta_mom  = mom_tm(ret);
+
     beta_quad = epf_quad(ret, 2);
 
     beta_cube = epf_cube(ret, 2);
