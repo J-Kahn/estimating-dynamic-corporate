@@ -212,131 +212,146 @@ int main(int argc, char **argv){
           res1.policy();
 
           omp_set_num_threads(thr_num);
+          for(int t = 0; t < ntrials; t++){
 
-          simfile << seedn;
-          for(int i = 0; i < report.nrows(); i++){
-              simfile << ", " << report(i);
+              seedn = 18000*t + 18;
+              srand(seedn);
+              randus.randu();
+
+              for(int i = 0; i < npar; i++){
+                par_base[i] = res1.pars[i];
+              }
+              report = report_all_mc(res1, dat1.nsim, dat1.nbr, dat1, randus);
+
+              simfile << seedn;
+
+              for(int i = 0; i < npar; i++){
+                simfile << ", " << res1.pars[i];
+              }
+
+            for(int i = 0; i < report.nrows(); i++){
+                simfile << ", " << report(i);
+            }
+            simfile << endl;
+
+            start = 0;
+
+            momfile << report(0);
+            for(int i = 1; i < 8; i++){
+               momfile << ", " << report(i);
+            }
+            momfile << endl;
+
+            start += 8;
+
+            quadfile << report(0 + start);
+            for(int i = 1; i < 18; i++){
+               quadfile << ", " << report(i + start);
+            }
+            quadfile << endl;
+
+            start += 18;
+
+            cubefile << report(0 + start);
+            for(int i = 1; i < 30; i++){
+               cubefile << ", " << report(i + start);
+            }
+            cubefile << endl;
+
+            start += 30;
+
+            momfile_cv << report(0 + start);
+            for(int i = 1; i < 11; i++){
+               momfile_cv << ", " << report(i + start);
+            }
+            momfile_cv << endl;
+
+            start += 11;
+
+            quadfile_trans << report(0 + start);
+            for(int i = 1; i < 18; i++){
+               quadfile_trans << ", " << report(i + start);
+            }
+            quadfile_trans << endl;
+
+            start += 18;
+
+            vmomfile << report(0 + start);
+            for(int i = 1; i < 8 * 8; i++){
+               vmomfile << ", " << report(i + start);
+            }
+            vmomfile << endl;
+
+            start += 8 * 8;
+
+            vquadfile << report(0 + start);
+            for(int i = 1; i < 18 * 18; i++){
+               vquadfile << ", " << report(i + start);
+            }
+            vquadfile << endl;
+
+            start += 18 * 18;
+
+            vcubefile << report(0 + start);
+            for(int i = 1; i < 30 * 30; i++){
+               vcubefile << ", " << report(i + start);
+            }
+            vcubefile << endl;
+
+            start += 30 * 30;
+
+            vmomfile_cv << report(0 + start);
+            for(int i = 1; i < 11 * 11; i++){
+               vmomfile_cv << ", " << report(i + start);
+            }
+            vmomfile_cv << endl;
+
+            start += 11 * 11;
+
+            vquadfile_trans << report(0 + start);
+            for(int i = 1; i < 18 * 18; i++){
+               vquadfile_trans << ", " << report(i + start);
+            }
+            vquadfile_trans << endl;
+
+            start += 18 * 18;
+
+            vmomquadfile << report(0 + start);
+            for(int i = 1; i < 8 * 18; i++){
+               vmomquadfile << ", " << report(i + start);
+            }
+            vmomquadfile << endl;
+
+            start += 8 * 18;
+
+            vmomcubefile << report(0 + start);
+            for(int i = 1; i < 8 * 30; i++){
+               vmomcubefile << ", " << report(i + start);
+            }
+            vmomcubefile << endl;
+
+            start += 8 * 30;
+
+
+            vmomquadfile_cv << report(0 + start);
+            for(int i = 1; i < 11 * 18; i++){
+               vmomquadfile_cv << ", " << report(i + start);
+            }
+            vmomquadfile_cv << endl;
+
+            start += 11*18;
+
+            vmomquadfile_trans << report(0 + start);
+            for(int i = 1; i < 8 * 18; i++){
+               vmomquadfile_trans << ", " << report(i + start);
+            }
+            vmomquadfile_trans << endl;
+
+            start += 8 * 18;
+
+            cout << "Trial " << t << ", thread" << omp_get_thread_num() << endl;
+    	      dat1.reset();
           }
-          simfile << endl;
-
-          start = 0;
-
-          momfile << report(0);
-          for(int i = 1; i < 8; i++){
-             momfile << ", " << report(i);
-          }
-          momfile << endl;
-
-          start += 8;
-
-          quadfile << report(0 + start);
-          for(int i = 1; i < 18; i++){
-             quadfile << ", " << report(i + start);
-          }
-          quadfile << endl;
-
-          start += 18;
-
-          cubefile << report(0 + start);
-          for(int i = 1; i < 30; i++){
-             cubefile << ", " << report(i + start);
-          }
-          cubefile << endl;
-
-          start += 30;
-
-          momfile_cv << report(0 + start);
-          for(int i = 1; i < 11; i++){
-             momfile_cv << ", " << report(i + start);
-          }
-          momfile_cv << endl;
-
-          start += 11;
-
-          quadfile_trans << report(0 + start);
-          for(int i = 1; i < 18; i++){
-             quadfile_trans << ", " << report(i + start);
-          }
-          quadfile_trans << endl;
-
-          start += 18;
-
-          vmomfile << report(0 + start);
-          for(int i = 1; i < 8 * 8; i++){
-             vmomfile << ", " << report(i + start);
-          }
-          vmomfile << endl;
-
-          start += 8 * 8;
-
-          vquadfile << report(0 + start);
-          for(int i = 1; i < 18 * 18; i++){
-             vquadfile << ", " << report(i + start);
-          }
-          vquadfile << endl;
-
-          start += 18 * 18;
-
-          vcubefile << report(0 + start);
-          for(int i = 1; i < 30 * 30; i++){
-             vcubefile << ", " << report(i + start);
-          }
-          vcubefile << endl;
-
-          start += 30 * 30;
-
-          vmomfile_cv << report(0 + start);
-          for(int i = 1; i < 11 * 11; i++){
-             vmomfile_cv << ", " << report(i + start);
-          }
-          vmomfile_cv << endl;
-
-          start += 11 * 11;
-
-          vquadfile_trans << report(0 + start);
-          for(int i = 1; i < 18 * 18; i++){
-             vquadfile_trans << ", " << report(i + start);
-          }
-          vquadfile_trans << endl;
-
-          start += 18 * 18;
-
-          vmomquadfile << report(0 + start);
-          for(int i = 1; i < 8 * 18; i++){
-             vmomquadfile << ", " << report(i + start);
-          }
-          vmomquadfile << endl;
-
-          start += 8 * 18;
-
-          vmomcubefile << report(0 + start);
-          for(int i = 1; i < 8 * 30; i++){
-             vmomcubefile << ", " << report(i + start);
-          }
-          vmomcubefile << endl;
-
-          start += 8 * 30;
-
-
-          vmomquadfile_cv << report(0 + start);
-          for(int i = 1; i < 11 * 18; i++){
-             vmomquadfile_cv << ", " << report(i + start);
-          }
-          vmomquadfile_cv << endl;
-
-          start += 11*18;
-
-          vmomquadfile_trans << report(0 + start);
-          for(int i = 1; i < 8 * 18; i++){
-             vmomquadfile_trans << ", " << report(i + start);
-          }
-          vmomquadfile_trans << endl;
-
-          start += 8 * 18;
-
-          cout << "Trial " << t << ", thread" << omp_get_thread_num() << endl;
-  	dat1.reset();
-      }
     }
 
     simfile.close();
