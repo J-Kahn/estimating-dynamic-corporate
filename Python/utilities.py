@@ -284,6 +284,10 @@ def generate_var_outofsample(dictf, dictv, n_par, upper=30, direct = "", jchoice
             skip +=1
     print('Total incomplete ' + str(err + skip))
 
+    
+
+        
+
 
 
 
