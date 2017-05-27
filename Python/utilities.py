@@ -287,14 +287,6 @@ def generate_var_outofsample(dictf, dictv, n_par, upper=30, direct = "", jchoice
 
 
 
-
-
-# In[558]:
-
-def gentzkow_shapiro(jac, w):
-    jwj = np.linalg.inv(quad(jac,w))
-    return - np.dot(jwj, np.dot(jac.transpose, W))
-
 def epf_manipulate_alt(truepar, dictd, dictv, n=75000, rlow=0, rhigh=500, offset=0, per = 1, getlow = -1, gethigh = -1, direct="", jchoice = -1):
   filename = dictd['filename']
   dataname = dictd['dataname']

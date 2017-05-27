@@ -170,7 +170,7 @@ def mis_test_alt(size, d, sep, lenm = 50):
   for iid, mi in enumerate(m):
     s1 += sep[iid] + strrnd(np.max(mi))
   s1 += " \\\\ \n"
-  s1 += " \\mbox{  } median  rejection rate ".ljust(lenm)
+  s1 += " \\mbox{  } mean  rejection rate ".ljust(lenm)
   for iid, mi in enumerate(m):
     s1 += sep[iid] + strrnd(np.median(mi))
   s1 += " \\\\ \n"
