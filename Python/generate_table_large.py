@@ -4,7 +4,7 @@ import utilities as util
 import writeup
 import matplotlib
 matplotlib.use('Agg')
-matplotlib.rc('text', usetex=True)
+#maplotlib.rc('text', usetex=True)
 font = {'family':'sans-serif','sans-serif':['Helvetica'],
 #        'weight' : 'normal',
         'size'   : 40}
@@ -12,13 +12,7 @@ font = {'family':'sans-serif','sans-serif':['Helvetica'],
 #matplotlib.rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
 matplotlib.rc('axes', edgecolor = 'k')
 matplotlib.rc('font', **font)
-matplotlib.rcParams['text.latex.preamble'] = [
-       r'\usepackage{siunitx}',   # i need upright \micro symbols, but you need...
-       r'\sisetup{detect-all}',   # ...this to force siunitx to actually use your fonts
-       r'\usepackage{helvet}',    # set the normal font here
-       r'\usepackage{sansmath}',  # load up the sansmath so that math -> helvet
-       r'\sansmath'               # <- tricky! -- gotta actually tell tex to use!
-]
+#maplotlib.rcParams['text.latex.preamble'] = [
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 from scipy.linalg import pinv
@@ -97,7 +91,7 @@ dictd_mom = {
                     'filev12'  : 'trial_data_rr_vmom_quad.csv',
                   }
 
-dictv_mom = {'fixed' : 0}
+dictv_mom = {}
 
 
 # Diagonal moments
@@ -113,7 +107,7 @@ dictd_mom_diag = {
 
                   }
 
-dictv_mom_diag = {'fixed' : 0}
+dictv_mom_diag = {}
 
 # EPF
 dictd_epfq = {
@@ -139,7 +133,7 @@ dictv_epfq = {
                     'nresi'     : nres,
                     'nresi_end' : nres_end,
                     'transposer': False,
-    'fixed' : 0
+    
                   }
 
 # Diagonal EPF
@@ -168,7 +162,7 @@ dictv_epfq_diag = {
                     'nresi'     : nres,
                     'nresi_end' : nres_end,
                     'transposer': False,
-        'fixed' : 0
+        
                   }
 
 dict5 = [[dictd_epfq, dictv_epfq], [dictd_epfq_diag, dictv_epfq_diag]]

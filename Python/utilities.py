@@ -8,7 +8,7 @@ import numpy as np
 
 import matplotlib
 matplotlib.use('Agg')
-matplotlib.rc('text', usetex=True)
+#maplotlib.rc('text', usetex=True)
 font = {'family':'sans-serif','sans-serif':['Helvetica'],
 #        'weight' : 'normal',
         'size'   : 35}
@@ -16,13 +16,7 @@ font = {'family':'sans-serif','sans-serif':['Helvetica'],
 matplotlib.rc('axes', edgecolor='k')
 matplotlib.rc('axes', linewidth = 2)
 matplotlib.rc('font', **font)
-matplotlib.rcParams['text.latex.preamble'] = [
-       r'\usepackage{siunitx}',   # i need upright \micro symbols, but you need...
-       r'\sisetup{detect-all}',   # ...this to force siunitx to actually use your fonts
-       r'\usepackage{helvet}',    # set the normal font here
-       r'\usepackage{sansmath}',  # load up the sansmath so that math -> helvet
-       r'\sansmath'               # <- tricky! -- gotta actually tell tex to use!
-]
+#maplotlib.rcParams['text.latex.preamble'] = [
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 from scipy.linalg import pinv
@@ -137,8 +131,8 @@ def generate_var_outofsample(dictf, dictv, n_par, upper=30, direct = "", jchoice
     V12 = np.loadtxt("../Results/MC/" + filev12, delimiter=",")
     m1 = np.loadtxt("../Results/MC/" + dataname, delimiter=",")
     m2 = np.loadtxt("../Results/MC/" + dataname2, delimiter=",")
-    #m1 = m1[0:nhigh,:]
-    #m2 = m2[0:nhigh,:]
+    m1 = m1[0:nhigh,:]
+    m2 = m2[0:nhigh,:]
     #v12 = np.cov(m1.transpose(), m2.transpose())
     #v12 = v12[:np.shape(m1)[1], np.shape(m1)[1]:] * nt
     if filew == 'identity':
@@ -161,12 +155,12 @@ def generate_var_outofsample(dictf, dictv, n_par, upper=30, direct = "", jchoice
       njacend = dictv['njacend']
     else:
       njacend  = njac1_end
-
+    
     if 'njacaend' in dictv:
       njacaend = dictv['njacaend']
     else:
       njacaend  = njac2_end
-
+    
     if 'nimom' in dictv:
       nimom = dictv['nimom']
     else:
@@ -191,22 +185,22 @@ def generate_var_outofsample(dictf, dictv, n_par, upper=30, direct = "", jchoice
       transposer = dictv['transposer']
     else:
       transposer = True
-
+    
     if 'npar_est' in dictv:
       npar_est = dictv['npar_est']
     else:
       npar_est = 4
-
+    
     if 'npar' in dictv:
       npar = dictv['npar']
     else:
       npar = 7
-
+    
     if 'jacname' in dictf:
       jacname = dictf['jacname']
     else:
       jacname = 'jacobians_clean' + name + "_"
-
+    
     n_mom2 = namom_end - namom
     n_mom  = nimom_end - nimom
     if jchoice == -3:
@@ -262,8 +256,6 @@ def generate_var_outofsample(dictf, dictv, n_par, upper=30, direct = "", jchoice
                         jac2  = Jaccest[j, jchoice * (njac2_end - njac1) + njaca - njac1: jchoice * (njac2_end - njac1) + njacaend - njac1].reshape(n_mom2, npar).transpose()
                         jac1 = jac1[0:npar_est, :]
                         jac2 = jac2[0:npar_est, :]
-                    jac1[np.abs(jac1) < 1e-8] = 0
-                    jac2[np.abs(jac2) < 1e-8] = 0
                     v1 = V1[Summest[j,0], :].reshape(n_mom, n_mom)
                     v2 = V2[Summest[j,0], :].reshape(n_mom2, n_mom2)
 
@@ -603,16 +595,16 @@ def epf_manipulate_alt(truepar, dictd, dictv, n=75000, rlow=0, rhigh=500, offset
              'diff' : Diff, 'diff2' : Diff2, 'v' : V, 'vv' : VV, 'diffo' : Diffo, 'vo' : Vo, 'ju2' : J2, 'ju1' : J, 'dat' : Qdat}
 
   plt.figure(figsize=(20,20))
-  plt.plot(dist.cdf(np.nanpercentile(jstat, np.arange(0,101))),np.arange(0,101)/100.0,'r',lw = 4)
+  plt.plot(dist.cdf(np.nanpercentile(jstat, np.arange(0,101))),np.arange(0,101)/100.0,color='r',lw = 4)
   plt.plot(dist2.cdf(np.nanpercentile(jstat_true, np.arange(0,101))),np.arange(0,101)/100.0,'b--',lw = 4)
   plt.plot(np.arange(0,101)/100.0, np.arange(0,101)/100.0,'k',lw = 2)
   try:
       plt.plot(dist3.cdf(np.nanpercentile(jstato, np.arange(0,101))),np.arange(0,101)/100.0,'g-.',lw = 4)
   except:
       print("No out of sample moments")
-  plt.xlabel(r'Theoretical percentile',fontsize=50)
-  plt.ylabel(r'Actual percentile',fontsize=50)
-  plt.legend([r'Estimated parameters',r'True parameters', r'Theoretical',r'Out-of-sample test'],loc=2,frameon=False,fontsize = 45)
+  plt.xlabel(r'Theoretical percentile',fontsize=40)
+  plt.ylabel(r'Actual percentile',fontsize=40)
+  plt.legend([r'Estimated parameters',r'True parameters', r'Theoretical',r'Out-of-sample test'],loc=2,frameon=False,fontsize = 35)
   plt.savefig("../WR/chi2plot_" + filename + ".png")
   plt.close()
   try:
@@ -640,12 +632,10 @@ def epf_manipulate_alt(truepar, dictd, dictv, n=75000, rlow=0, rhigh=500, offset
   return results
 
 
-# In[445]:
 
 from scipy.interpolate import spline
 
 
-# In[559]:
 
 
 
@@ -836,14 +826,14 @@ def epf_ineff_manipulate_alt(truepar, dictd, dictv, n=75000, rlow=0, rhigh=500, 
   #  mse[i] = np.nanmean(err[:,i][np.abs(err[:,i])>0]**2)
   #print(mse)
   rmse = np.sqrt(np.array(mse))
-  sd = np.zeros((Mest.shape[0], npar_est))
-  ub = np.zeros((Mest.shape[0], npar_est))
-  lb = np.zeros((Mest.shape[0], npar_est))
+  sd = np.zeros((Mest.shape[0], 4))
+  ub = np.zeros((Mest.shape[0], 4))
+  lb = np.zeros((Mest.shape[0], 4))
 
   jacworked = np.prod(np.isnan(jacs)==False,1)
   njacworked = np.sum(jacworked)
   inb = np.zeros((njacworked, Mest.shape[1]))
-  ts = np.zeros((njacworked, npar_est))
+  ts = np.zeros((njacworked, 4))
   jn = 0
   jstat = np.zeros(njacworked)
   jstato = np.zeros(njacworked)
@@ -946,7 +936,7 @@ def epf_ineff_manipulate_alt(truepar, dictd, dictv, n=75000, rlow=0, rhigh=500, 
         VVV[jn, :] = v.reshape(1, n_mom * n_mom)
         VO[jn, :] = Varoos[i, :]
         Diffo[jn, :] = diff2
-        JWJ[jn, :] = jwj.reshape(1, npar_est * npar_est)
+        JWJ[jn, :] = jwj.reshape(1, 4 * 4)
         J2[jn, :] = jac2.reshape(n_mom2 * npar_est)
         J[jn, :] = jac.reshape(n_mom * npar_est)
         CV[jn, :] = np.dot(jwj, np.dot(jac, np.dot(w, v))).reshape(1, 4 * n_mom)
@@ -959,7 +949,7 @@ def epf_ineff_manipulate_alt(truepar, dictd, dictv, n=75000, rlow=0, rhigh=500, 
 
   jstat_true = np.abs(Summest2[isfloat(Summest2[:,2]),2].astype(float)*n*(10/11))
   prt = np.nanmean(np.abs(ts[np.prod(np.isnan(ts)==False,1)==1, :]) > 1.96,0)
-  dist = stats.chi2(n_mom - npar_est)
+  dist = stats.chi2(n_mom - 4)
   dist2 = stats.chi2(n_mom)
   dist3 = stats.chi2(n_mom2)
   dnorm = stats.norm()
@@ -987,9 +977,9 @@ def epf_ineff_manipulate_alt(truepar, dictd, dictv, n=75000, rlow=0, rhigh=500, 
       plt.plot(dist3.cdf(np.nanpercentile(jstato, np.arange(0,101))),np.arange(0,101)/100.0,'g-.',lw=4)
   except:
       print("No out of sample moments")
-  plt.xlabel(r'Theoretical percentile',fontsize=50)
-  plt.ylabel(r'Actual percentile',fontsize=50)
-  plt.legend([r'Estimated parameters',r'True parameters',r'Theoretical',r'Out-of-sample'],loc=2,frameon=False,fontsize=45)
+  plt.xlabel(r'Theoretical percentile',fontsize=40)
+  plt.ylabel(r'Actual percentile',fontsize=40)
+  plt.legend([r'Estimated parameters',r'True parameters',r'Theoretical',r'Out-of-sample'],loc=2,frameon=False,fontsize=35)
   plt.savefig("../WR/chi2plot_" + filename + ".png")
   plt.close()
 
@@ -1019,7 +1009,8 @@ def epf_ineff_manipulate_alt(truepar, dictd, dictv, n=75000, rlow=0, rhigh=500, 
   return(results)
 
 
-# In[448]:
+
+
 
 def epf_par_out(truepar, dictd, dictv, n=75000, rlow=0, rhigh=500, offset=0, per = 1, getlow = -1, gethigh = -1, direct="", jchoice = -1):
   filename = dictd['filename']
