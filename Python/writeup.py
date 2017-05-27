@@ -152,9 +152,6 @@ def print_var_alt(description, i, d, sep, factor = 1, lenm = 50):
 def mis_test_alt(size, d, sep, lenm = 50):
   m = []
   for di in d:
-    print('Dropped: ' + str(np.mean(np.prod(np.isnan(di['tsn'])==False,1)==1)))
-    print('Error on jstat: ' + str(np.mean(di['jstat']<0)))
-    print('Error on out of sample jstat: ' + str(np.mean(di['jstato']<0)))
     m = m + [np.nanmean(np.abs(di['tsn'][np.prod(np.isnan(di['tsn'])==False,1)==1, :]) > 1.96, 0)]
   s1 = ''
   s1 += " Overidentification test rejection rate ".ljust(lenm)
