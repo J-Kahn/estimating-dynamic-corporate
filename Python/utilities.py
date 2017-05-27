@@ -96,7 +96,7 @@ def quad(x, W):
 def nu_outofsample(jac1, jac2, omega1, omega2, omega12, w):
   return np.dot(np.dot(np.dot(jac2.transpose(), np.linalg.inv(quad(jac1, w),rcond=1e-3)), jac1), w)
 def var_mom_outofsample(jac1, jac2, omega1, omega2, omega12, w):
-  nu = np.dot(np.dot(np.dot(jac2.transpose(), np.linalg.inv(quad(jac1, w))), jac1), w)
+  nu = np.dot(np.dot(np.dot(jac2.transpose(), np.linalg.pinv(quad(jac1, w),rcond=1e-3)), jac1), w)
   return omega2 - np.dot(nu, omega12) - np.dot(omega12.transpose(), nu.transpose()) + quad(nu, omega1)
 
 
